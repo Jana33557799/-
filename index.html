@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>بطاقة شكر</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    .certificate-container {
+      position: relative;
+      width: 1200px;
+      height: 850px;
+      margin: 30px auto;
+      background-image: url('certificate.png');
+      background-size: cover;
+    }
+    .teacher-name {
+      position: absolute;
+      top: 300px;
+      width: 100%;
+      font-size: 36px;
+      color: white;
+      font-weight: bold;
+    }
+    .student-name {
+      position: absolute;
+      top: 480px;
+      width: 100%;
+      font-size: 32px;
+      color: white;
+    }
+    .thank-message {
+      position: absolute;
+      top: 540px;
+      width: 80%;
+      left: 10%;
+      font-size: 34px;
+      color: white;
+    }
+    .instruction {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      font-size: 24px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h2>إصدار بطاقة الشكر</h2>
+    <form id="certificateForm">
+      <input type="text" placeholder="اسم عضو هيئة التدريس" id="teacher" required><br><br>
+      <select id="message" required>
+        <option value="1">الرسالة الأولى</option>
+        <option value="2">الرسالة الثانية</option>
+      </select><br><br>
+      <input type="text" placeholder="اسم الطالب" id="student" required><br><br>
+      <button type="submit">إنشاء الشهادة</button>
+    </form>
+  </div>
+  <div class="certificate-container" id="certificate" style="display:none;">
+    <div class="teacher-name" id="teacherName"></div>
+    <div class="student-name" id="studentName"></div>
+    <div class="thank-message" id="thankMessage"></div>
+    <div class="instruction">على الطالب ارسال بطاقة الشكر للاستاذ عن طريق البريد الالكتروني</div>
+  </div>
+
+  <script>
+    const messages = {
+      1: `إلى من زرع فينا بذور الطموح، وسقاها علمًا واهتمامًا حتى أينعت إنجازًا وتخرجًا…
+كنتم لنا أكثر من معلّم، كنتم الدافع حين تراجعنا، والسند حين ترددنا، والنور حين غابت الرؤية.
+لم تكن كلماتكم تمرُّ مرورًا عابرًا، بل كانت ترسخ في الذاكرة وتبني فينا الإنسان قبل أن تُشكّل فينا الطالب.
+وفي يوم التخرّج، لا يسعنا إلا أن نلتفت بامتنان لمن كان له الفضل بعد الله في وصولنا،
+شكرًا لكم… فقد كنتم أثرًا لا يُمحى، وعلامة فارقة في دربنا العلمي والإنساني`,
+      2: `في لحظة تخرجي، لا يسعني إلا أن أقف وقفة تقدير وإجلال،
+لمن كان النور في طريق العتمة، والدافع في لحظة التراجع، والقدوة حين ضاعت المعايير.
+لقد تركتم فينا أثرًا لا تمحوه الأيام، وزرعتم في قلوبنا امتنانًا لا يزول.
+شكرًا لكم، لأنكم كنتم أكثر من معلّم… كنتم مصدرًا للثقة، ومثالًا للرسالة النبيلة`
+    };
+
+    document.getElementById('certificateForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const teacher = document.getElementById('teacher').value;
+      const student = document.getElementById('student').value;
+      const msgId = document.getElementById('message').value;
+
+      document.getElementById('teacherName').innerText = teacher;
+      document.getElementById('studentName').innerText = student;
+      document.getElementById('thankMessage').innerText = messages[msgId];
+
+      document.getElementById('certificate').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
