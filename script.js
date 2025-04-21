@@ -1,0 +1,53 @@
+function generate() {
+  const teacher = document.getElementById('teacher').value.trim();
+  const student = document.getElementById('student').value.trim();
+  const msgKey = document.getElementById('message').value;
+  const messages = {
+    msg1: `إلى من زرع فينا بذور الطموح، وسقاها علمًا واهتمامًا حتى أينعت إنجازًا وتخرجًا…
+كنتم لنا أكثر من معلّم، كنتم الدافع حين تراجعنا، والسند حين ترددنا، والنور حين غابت الرؤية.
+لم تكن كلماتكم تمرُّ مرورًا عابرًا، بل كانت ترسخ في الذاكرة وتبني فينا الإنسان قبل أن تُشكّل فينا الطالب.
+وفي يوم التخرّج، لا يسعنا إلا أن نلتفت بامتنان لمن كان له الفضل بعد الله في وصولنا،
+شكرًا لكم… فقد كنتم أثرًا لا يُمحى، وعلامة فارقة في دربنا العلمي والإنساني`,
+    msg2: `في لحظة تخرجي، لا يسعني إلا أن أقف وقفة تقدير وإجلال،
+لمن كان النور في طريق العتمة، والدافع في لحظة التراجع، والقدوة حين ضاعت المعايير.
+لقد تركتم فينا أثرًا لا تمحوه الأيام، وزرعتم في قلوبنا امتنانًا لا يزول.
+شكرًا لكم، لأنكم كنتم أكثر من معلّم… كنتم مصدرًا للثقة، ومثالًا للرسالة النبيلة`
+  };
+
+  const canvas = document.getElementById('certificate');
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.src = 'certificate.png';
+  img.onload = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    // teacher
+    ctx.font = 'bold 30px Cairo';
+    ctx.fillText(teacher, canvas.width/2, 260);
+    // message
+    ctx.font = 'bold 34px Cairo';
+    wrapText(ctx, messages[msgKey], canvas.width/2, 320, 800, 40);
+    // student
+    ctx.font = 'bold 32px Cairo';
+    ctx.fillText(student, canvas.width/2, 600);
+    document.getElementById('certificate').style.display = 'block';
+  };
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  for(let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + ' ';
+    if(ctx.measureText(testLine).width > maxWidth && n > 0) {
+      ctx.fillText(line, x, y);
+      line = words[n] + ' ';
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line, x, y);
+}
